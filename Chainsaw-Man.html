@@ -1,0 +1,487 @@
+<html lang="es"><head>
+<meta charset="utf-8">
+<meta content="es" name="language">
+<title>Chainsaw Man</title>
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<link rel="stylesheet" href="https://tioanime.com/assets/css/bootstrap.min.css?v=1.0.1" media="all">
+<link rel="stylesheet" href="https://tioanime.com/assets/css/main.css?v=2.2.6" media="all">
+<style>
+#favoritoBtn {
+Font-weight;700;
+color:white;
+
+font-size:11px;
+background:rgba(0, 0, 0,.5);
+padding:06px 10px;
+border: 2px solid white;
+border-radius:12px;
+}
+
+#favoritoBtn:hover{background:rgba(121, 121, 255,.5);}
+
+.toggle-container {
+display: flex;
+flex-direction: column;
+
+padding: 03px ;
+background-color: #;
+width: auto;
+border-radius: 5px;
+cursor: pointer;
+margin-bottom: 10px;
+margin-left: auto;
+
+}
+
+.toggle-label {
+font-size: 14px;
+margin-bottom: 5px;
+transition: color 0.3s;
+color:white;
+}
+
+.toggle-switch {
+width: 55px;
+height: 25px;
+background-color: #ddd;
+border-radius: 15px;
+position: relative;
+margin-right: 01px;
+}
+
+.activado .toggle-switch {
+background-color: green;
+}
+
+.toggle-slider {
+width: 25px;
+height: 25px;
+border-radius: 50%;
+background-color: #888;
+position: absolute;
+top: 0;
+left: 0;
+transform: translateX(0);
+transition: transform 0.3s, background-color 0.3s;
+}
+
+.activado .toggle-slider {
+transform: translateX(100);
+background-color: #00ff00; /* Color verde cuando está activado */
+}
+
+.activado .toggle-label {
+color: #00ff00; /* Color verde cuando está activado */
+}
+
+*{-webkit-tap-highlight-color:transparent;}
+
+
+
+.texto-Sarp {
+white-space: nowrap;
+overflow: hidden;
+font-size:9px;
+
+}
+
+</style>
+
+<link href="https://fonts.googleapis.com/css?family=Asap:400,700" rel="stylesheet">
+<script src="https://kit.fontawesome.com/2a41106415.js" crossorigin="anonymous"></script>
+<link rel="icon" href="/assets/img/icon-32x32.png" sizes="32x32">
+<link rel="manifest" href="/manifest.json">
+<body class="dark">
+<div id="tioanime">
+
+
+<div class="container">
+<a class="navbar-brand" href="/">
+
+</a>
+</div>
+</nav>
+</header>
+<article class="anime-single">
+<div class="container">
+<div class="row">
+<aside class="col col-sm-4 col-lg-3 col-xl-2">
+<div class="thumb">
+<figure><img src="https://image.tmdb.org/t/p/w500//mIz0eKhzHuSPeRSePCyoCt9bKVp.jpg"></figure>
+<a class="btn btn-danger btn-block status"><i class="fa-play-circle"></i>Finalizado</a>
+</div>
+</aside>
+<aside class="col col-sm-8 col-lg-9 col-xl-10">
+<h1 class="title">Chainsaw Man (2022)</h1>
+<div class="meta">
+<span class="anime-type-peli">Anime</span>
+<span class="season">
+</span>
+</div>
+<p class="genres">
+<span class="btn btn-sm btn-primary rounded-pill">
+<a href="" class="btn btn-sm btn-light rounded-pill">Animación </a>
+</span>
+
+<span class="btn btn-sm btn-primary rounded-pill">
+<a href="" class="btn btn-sm btn-light rounded-pill">Action & Adventure </a>
+</span>
+
+<span class="btn btn-sm btn-primary rounded-pill">
+<a href="" class="btn btn-sm btn-light rounded-pill">Sci-Fi & Fantasy </a>
+</span>
+
+<span class="btn btn-sm btn-primary rounded-pill">
+<a href="" class="btn btn-sm btn-light rounded-pill"></a>
+</span>
+
+
+
+</p>
+<p class="sinopsis">Denji es un adolescente que vive con un demonio motosierra llamado Pochita. Para pagar la deuda que le dejó su padre tras su muerte, ha tenido que ganarse el pan como puede matando demonios y vendiendo sus cadáverse a la mafia, aunque su vida siempre ha sido miserable.
+
+Cuando una traición provoca la muerte de Denji, Pochita hace un contrato con él y Denji revive como "Chainsaw Man", un ser humano con el corazón de un demonio.</p>
+
+</aside>
+</div>
+</div>
+<figure class="backdrop"><img src="https://image.tmdb.org/t/p/original//mIz0eKhzHuSPeRSePCyoCt9bKVp.jpg"></figure>
+
+
+
+</article>
+<div class="container">
+<div class="row justify-content-between">
+<aside class="principal col-12">
+
+<center><button id="favoritoBtn" data-identificador="" onclick="toggleFavorito()">Agregar a Favoritos</button></center><br>
+
+<div id="favoritoData" style="display: none;">
+<img id="favoritoImagen" class="poster" src="https://image.tmdb.org/t/p/w300//mIz0eKhzHuSPeRSePCyoCt9bKVp.jpg" alt="Poster de la Película">
+<a id="favoritoEnlace" href="go:"></a>
+<span id="nombre">Chainsaw Man</span>
+</div>
+
+
+
+<section>
+
+<div class="header">
+<h3 class="title fa-list-ul">Temporada 1</h3>
+
+<ul class="episodes-list list-unstyled">
+
+
+
+<li><a class="fa-play-circle d-inline-flex align-items-center rounded" href="#EPISODELINK"><figure>
+<center>
+<div class="texto-Sarp">
+martes, 11 de octubre de 2022
+</div>
+</center>
+
+<img src="https://image.tmdb.org/t/p/w300//dDwTq0HNQGMCpEdVQQyksvJvUcP.jpg" style="border-radius:9px;"></figure><div class="flex-grow-1"><p>Chainsaw Man<span> 1
+<div class="toggle-container" id="Perro y motosierra.2.1.26m">
+<div class="toggle-label">No visto</div>
+<div class="toggle-switch">
+<div class="toggle-slider"></div>
+</div>
+</div>
+</span></div></a></li>
+
+<li><a class="fa-play-circle d-inline-flex align-items-center rounded" href="https://kingplayadb.blogspot.com/?m=1.html?r=aHR0cHM6Ly9uaWthcGxheWVyci5jb20vdi8wOWRkZGJtMWpqMGg="><figure>
+<center>
+<div class="texto-Sarp">
+martes, 18 de octubre de 2022
+</div>
+</center>
+
+<img src="https://image.tmdb.org/t/p/w300//fvAOxW42H60ssVZlZND7WwFfqGU.jpg" style="border-radius:9px;"></figure><div class="flex-grow-1"><p>Chainsaw Man<span> 2
+<div class="toggle-container" id="Llegada a Tokio.2.2.24m">
+<div class="toggle-label">No visto</div>
+<div class="toggle-switch">
+<div class="toggle-slider"></div>
+</div>
+</div>
+</span></div></a></li>
+
+<li><a class="fa-play-circle d-inline-flex align-items-center rounded" href="https://kingplayadb.blogspot.com/?m=1.html?r=aHR0cHM6Ly9uaWthcGxheWVyci5jb20vdi9hNmZhM2xqZnF4YWU="><figure>
+<center>
+<div class="texto-Sarp">
+martes, 25 de octubre de 2022
+</div>
+</center>
+
+<img src="https://image.tmdb.org/t/p/w300//x20TB0bPovb6mcOoSWO3SNL7zhj.jpg" style="border-radius:9px;"></figure><div class="flex-grow-1"><p>Chainsaw Man<span> 3
+<div class="toggle-container" id="Paradero de Nyako.2.3.24m">
+<div class="toggle-label">No visto</div>
+<div class="toggle-switch">
+<div class="toggle-slider"></div>
+</div>
+</div>
+</span></div></a></li>
+
+<li><a class="fa-play-circle d-inline-flex align-items-center rounded" href="https://kingplayadb.blogspot.com/?m=1.html?r=aHR0cHM6Ly9lbXR1cmJvdmlkLmNvbS90L3o5T210RkRzdFM4NkVjUEdRSEpu"><figure>
+<center>
+<div class="texto-Sarp">
+martes, 1 de noviembre de 2022
+</div>
+</center>
+
+<img src="https://image.tmdb.org/t/p/w300//78p3CwjbIbJv2MucbLWnvBtF34d.jpg" style="border-radius:9px;"></figure><div class="flex-grow-1"><p>Chainsaw Man<span> 4
+<div class="toggle-container" id="Rescate.2.4.24m">
+<div class="toggle-label">No visto</div>
+<div class="toggle-switch">
+<div class="toggle-slider"></div>
+</div>
+</div>
+</span></div></a></li>
+
+<li><a class="fa-play-circle d-inline-flex align-items-center rounded" href="#EPISODELINK"><figure>
+<center>
+<div class="texto-Sarp">
+martes, 8 de noviembre de 2022
+</div>
+</center>
+
+<img src="https://image.tmdb.org/t/p/w300//wELcAvuugIKpw9J7rrBr6erpRU.jpg" style="border-radius:9px;"></figure><div class="flex-grow-1"><p>Chainsaw Man<span> 5
+<div class="toggle-container" id="Demonio Pistola.2.5.24m">
+<div class="toggle-label">No visto</div>
+<div class="toggle-switch">
+<div class="toggle-slider"></div>
+</div>
+</div>
+</span></div></a></li>
+
+<li><a class="fa-play-circle d-inline-flex align-items-center rounded" href="#EPISODELINK"><figure>
+<center>
+<div class="texto-Sarp">
+martes, 15 de noviembre de 2022
+</div>
+</center>
+
+<img src="https://image.tmdb.org/t/p/w300//1gtFS9ch884GtW543RK4Ma0xAwW.jpg" style="border-radius:9px;"></figure><div class="flex-grow-1"><p>Chainsaw Man<span> 6
+<div class="toggle-container" id="Matar a Denji.2.6.24m">
+<div class="toggle-label">No visto</div>
+<div class="toggle-switch">
+<div class="toggle-slider"></div>
+</div>
+</div>
+</span></div></a></li>
+
+<li><a class="fa-play-circle d-inline-flex align-items-center rounded" href="#EPISODELINK"><figure>
+<center>
+<div class="texto-Sarp">
+martes, 22 de noviembre de 2022
+</div>
+</center>
+
+<img src="https://image.tmdb.org/t/p/w300//wIm4VMhMB6iwqWcYqaQfQPC84EL.jpg" style="border-radius:9px;"></figure><div class="flex-grow-1"><p>Chainsaw Man<span> 7
+<div class="toggle-container" id="Motosierra vs Eternidad.2.7.24m">
+<div class="toggle-label">No visto</div>
+<div class="toggle-switch">
+<div class="toggle-slider"></div>
+</div>
+</div>
+</span></div></a></li>
+
+<li><a class="fa-play-circle d-inline-flex align-items-center rounded" href="#EPISODELINK"><figure>
+<center>
+<div class="texto-Sarp">
+martes, 29 de noviembre de 2022
+</div>
+</center>
+
+<img src="https://image.tmdb.org/t/p/w300//3yToIKKsEM45uKTPlJVwqLZYMg8.jpg" style="border-radius:9px;"></figure><div class="flex-grow-1"><p>Chainsaw Man<span> 8
+<div class="toggle-container" id="Tiroteo.2.8.24m">
+<div class="toggle-label">No visto</div>
+<div class="toggle-switch">
+<div class="toggle-slider"></div>
+</div>
+</div>
+</span></div></a></li>
+
+<li><a class="fa-play-circle d-inline-flex align-items-center rounded" href="#EPISODELINK"><figure>
+<center>
+<div class="texto-Sarp">
+martes, 6 de diciembre de 2022
+</div>
+</center>
+
+<img src="https://image.tmdb.org/t/p/w300//kk4Cvp4rZynFjvphJDfljdJKDX9.jpg" style="border-radius:9px;"></figure><div class="flex-grow-1"><p>Chainsaw Man<span> 9
+<div class="toggle-container" id="Desde Kioto.2.9.24m">
+<div class="toggle-label">No visto</div>
+<div class="toggle-switch">
+<div class="toggle-slider"></div>
+</div>
+</div>
+</span></div></a></li>
+
+<li><a class="fa-play-circle d-inline-flex align-items-center rounded" href="#EPISODELINK"><figure>
+<center>
+<div class="texto-Sarp">
+martes, 13 de diciembre de 2022
+</div>
+</center>
+
+<img src="https://image.tmdb.org/t/p/w300//vq6IPO2Nu3NqnKpWAgK4IxhJI9B.jpg" style="border-radius:9px;"></figure><div class="flex-grow-1"><p>Chainsaw Man<span> 10
+<div class="toggle-container" id="Magullado y maltratado.2.10.26m">
+<div class="toggle-label">No visto</div>
+<div class="toggle-switch">
+<div class="toggle-slider"></div>
+</div>
+</div>
+</span></div></a></li>
+
+<li><a class="fa-play-circle d-inline-flex align-items-center rounded" href="#EPISODELINK"><figure>
+<center>
+<div class="texto-Sarp">
+martes, 20 de diciembre de 2022
+</div>
+</center>
+
+<img src="https://image.tmdb.org/t/p/w300//8sDXfti8kNF1NXZ0OM7qdeVH3Pr.jpg" style="border-radius:9px;"></figure><div class="flex-grow-1"><p>Chainsaw Man<span> 11
+<div class="toggle-container" id="Inicio de la misión.2.11.24m">
+<div class="toggle-label">No visto</div>
+<div class="toggle-switch">
+<div class="toggle-slider"></div>
+</div>
+</div>
+</span></div></a></li>
+
+<li><a class="fa-play-circle d-inline-flex align-items-center rounded" href="https://kingplayadb.blogspot.com/?m=1.html?r=aHR0cHM6Ly9uaWthcGxheWVyci5jb20vdi93dmcxcjd6a2s5bHg="><figure>
+<center>
+<div class="texto-Sarp">
+martes, 27 de diciembre de 2022
+</div>
+</center>
+
+<img src="https://image.tmdb.org/t/p/w300//xqxc5esGMw5alHcju87cmjyAkyy.jpg" style="border-radius:9px;"></figure><div class="flex-grow-1"><p>Chainsaw Man<span> 12
+<div class="toggle-container" id="Katana vs Motosierra.2.12.24m">
+<div class="toggle-label">No visto</div>
+<div class="toggle-switch">
+<div class="toggle-slider"></div>
+</div>
+</div>
+</span></div></a></li>
+
+
+
+
+</ul>
+</section>
+
+<!--PEGA AQUÍ LA TEMPORADA SIGUIENTE-->
+
+</aside>
+</div>
+</div>
+<script src="https://tioanime.com/assets/js/bootstrap.min.js?v=1.2.0"></script>
+</body>
+<script>
+const favoritoBtn = document.getElementById('favoritoBtn');
+const identificador = favoritoBtn.getAttribute('data-identificador');
+
+function toggleFavorito() {
+const favoritoEnlace = document.getElementById('favoritoEnlace');
+const imagen = document.getElementById('favoritoImagen');
+const nombre = document.getElementById('nombre').textContent; // Obtener el texto del span
+const favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
+
+const encontrado = favoritos.some(favorito => favorito.identificador === identificador);
+
+if (encontrado) {
+const nuevosFavoritos = favoritos.filter(favorito => favorito.identificador !== identificador);
+favoritoBtn.textContent = 'Agregar a Favoritos';
+localStorage.setItem('favoritos', JSON.stringify(nuevosFavoritos));
+} else {
+favoritos.push({
+identificador: identificador,
+imagen: imagen.outerHTML,
+enlace: favoritoEnlace.href,
+nombre: nombre, // Agregar el nombre al objeto
+});
+
+favoritoBtn.textContent = 'Borrar de Favoritos';
+localStorage.setItem('favoritos', JSON.stringify(favoritos));
+}
+}
+
+const favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
+const encontradoInicial = favoritos.some(favorito => favorito.identificador === identificador);
+
+if (encontradoInicial) {
+favoritoBtn.textContent = 'Borrar de Favoritos';
+} else {
+favoritoBtn.textContent = 'Agregar a Favoritos';
+}
+</script>
+<script>
+
+// Obtener todos los elementos con la clase 'toggle-container'
+const toggleContainers = document.querySelectorAll('.toggle-container');
+
+// Iterar sobre cada toggle-container y asignar eventos
+toggleContainers.forEach(container => {
+const toggleLabel = container.querySelector('.toggle-label');
+const toggleSlider = container.querySelector('.toggle-slider');
+
+// Cargar estado desde el almacenamiento local
+const storedToggleState = localStorage.getItem(container.id);
+if (storedToggleState === 'activado') {
+activarToggle(container, toggleLabel, toggleSlider);
+}
+
+// Asignar evento de clic a cada toggle-container
+container.addEventListener('click', (event) => toggleSwitch(event, container, toggleLabel, toggleSlider));
+});
+
+function toggleSwitch(event, container, status, slider) {
+// Detener la propagación del evento para evitar que el enlace se abra
+event.stopPropagation();
+
+// Prevenir el comportamiento predeterminado del enlace
+event.preventDefault();
+
+if (container.classList.contains('activado')) {
+desactivarToggle(container, status, slider);
+} else {
+activarToggle(container, status, slider);
+}
+}
+
+function activarToggle(container, status, slider) {
+container.classList.add('activado');
+status.textContent = 'Visto';
+slider.style.transform = 'translateX(36px)';
+slider.style.backgroundColor = '#ccc';
+localStorage.setItem(container.id, 'activado');
+}
+
+function desactivarToggle(container, status, slider) {
+container.classList.remove('activado');
+status.textContent = 'No visto';
+slider.style.transform = 'translateX(0)';
+slider.style.backgroundColor = '#ccc';
+localStorage.setItem(container.id, 'desactivado');
+}
+
+function desactivarToggle(container, status, slider) {
+container.classList.remove('activado');
+status.textContent = 'No visto';
+slider.style.transform = 'translateX(0)';
+slider.style.backgroundColor = '#ccc';
+localStorage.setItem(container.id, 'desactivado');
+}
+</script>
+
+<script>
+document.addEventListener('click', function(event) {
+// Verificar si el clic fue dentro de un contenedor con la clase 'toggle-container'
+if (event.target.closest('.toggle-container')) {
+event.preventDefault();
+}
+});
+</script>
+
+</html>
