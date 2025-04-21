@@ -1,9 +1,9 @@
-
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reproductor de Video Profesional</title>
+    <title>Reproductor de Video NAGI PLUS</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
@@ -199,7 +199,7 @@
             background-color: white;
             cursor: pointer;
             z-index: 2;
-            background-image: url('https://i.ibb.co/VcfL58VS/Pngtree-easter-bunny-4169138.png');
+            background-image: url('https://i.ibb.co/Xf0KyRw4/descarga.png');
             background-size: cover;
         }
     </style>
@@ -247,21 +247,16 @@
 
         window.onload = function() {
             if (videoLink) {
-                const savedTime = localStorage.getItem(videoLink + 'currentTime');
+                const videoId = `video_${btoa(videoLink)}`;
+                const savedTime = localStorage.getItem(videoId + '_currentTime');
+                video.src = videoLink;
+                
                 if (savedTime) {
-                    if (confirm("¿Continuar desde donde lo dejaste o empezar de nuevo?")) {
-                        video.src = videoLink; 
-                        video.currentTime = parseFloat(savedTime);
-                        video.play();
-                    } else {
-                        video.src = videoLink;
-                        video.currentTime = 0;
-                        video.play();
-                    }
-                } else {
-                    video.src = videoLink;
-                    video.play();
+                    video.currentTime = parseFloat(savedTime);
                 }
+                
+                video.play();
+                
                 if (videoTitle) {
                     document.getElementById('title').innerText = videoTitle; 
                 }
@@ -465,12 +460,14 @@
         }
 
         video.addEventListener('pause', () => {
-            localStorage.setItem(video.src + 'currentTime', video.currentTime);
+            const videoId = `video_${btoa(videoLink)}`;
+            localStorage.setItem(videoId + '_currentTime', video.currentTime);
         });
 
         video.addEventListener('loadeddata', () => {
-            if (localStorage.getItem(video.src + 'currentTime')) {
-                video.currentTime = parseFloat(localStorage.getItem(video.src + 'currentTime'));
+            const videoId = `video_${btoa(videoLink)}`;
+            if (localStorage.getItem(videoId + '_currentTime')) {
+                video.currentTime = parseFloat(localStorage.getItem(videoId + '_currentTime'));
             }
         });
 
