@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reproductor de Video NAGI PLUS</title>
+    <title>Reproductor de Video Profesional</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
@@ -245,9 +245,11 @@
         const videoTitle = getParameterByName('titulo');
         const skipTime = parseInt(getParameterByName('tiempo'), 10);
 
+        const video = document.getElementById('video');
+        const videoId = `video_${btoa(videoLink)}`;
+
         window.onload = function() {
             if (videoLink) {
-                const videoId = `video_${btoa(videoLink)}`;
                 const savedTime = localStorage.getItem(videoId + '_currentTime');
                 video.src = videoLink;
                 
@@ -263,7 +265,6 @@
             }
         };
 
-        const video = document.getElementById('video');
         const videoContainer = document.getElementById('videoContainer');
         const playPauseButton = document.getElementById('playPause');
         const muteButton = document.getElementById('mute');
@@ -283,6 +284,7 @@
         let hideControlsTimeout;
         const introDuration = 125;
         let controlsVisible = false;
+        let lastSavedTime = 0;
 
         video.addEventListener('loadeddata', () => {
             durationDisplay.textContent = formatTime(video.duration);
@@ -310,6 +312,12 @@
 
             if (video.currentTime > skipTime) {
                 skipIntroButton.style.display = 'none';
+            }
+
+            // Guardar cada 5 segundos
+            if (Math.abs(video.currentTime - lastSavedTime) > 5) {
+                localStorage.setItem(videoId + '_currentTime', video.currentTime);
+                lastSavedTime = video.currentTime;
             }
         });
 
@@ -458,22 +466,6 @@
             const secs = Math.floor(seconds % 60);
             return `${hrs}:${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
         }
-
-        video.addEventListener('pause', () => {
-            const videoId = `video_${btoa(videoLink)}`;
-            localStorage.setItem(videoId + '_currentTime', video.currentTime);
-        });
-
-        video.addEventListener('loadeddata', () => {
-            const videoId = `video_${btoa(videoLink)}`;
-            if (localStorage.getItem(videoId + '_currentTime')) {
-                video.currentTime = parseFloat(localStorage.getItem(videoId + '_currentTime'));
-            }
-        });
-
-        video.addEventListener('play', hideControls);
-        video.addEventListener('pause', showControls);
-        showControls();
     </script>
 </body>
 </html>
