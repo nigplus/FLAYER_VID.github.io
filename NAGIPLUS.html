@@ -1,0 +1,482 @@
+
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reproductor de Video Profesional</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            background-color: #000;
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        #videoContainer {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background: #000;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        #controls, #title, #centerControls, #skipIntro {
+            position: absolute;
+            opacity: 0;
+            transition: opacity 0.3s;
+            color: white;
+            z-index: 10;
+        }
+
+        #controls {
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2px;
+        }
+
+        button {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            outline: none;
+            padding: 10px;
+        }
+
+        #timeDisplay {
+            font-size: 15px;
+        }
+
+        #title {
+            top: 5px;
+            left: 5px;
+            font-size: 20px;
+        }
+
+        #centerControls {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            gap: 150px;
+            align-items: center;
+        }
+
+        .progress-container {
+            width: 98%;
+            height: 20px;
+            overflow: hidden;
+            position: absolute;
+            bottom: 55px;
+            left: 1%;
+            right: 1%;
+            border: 0px solid #808080;
+            box-shadow: 20px 2px 5px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+        }
+
+        #progressBar {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 15px;
+            background: #808080;
+            outline: none;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+            border-radius: 10px;
+        }
+
+        #progressBar::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #F08080;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+        #progressBar::-moz-range-thumb {
+            width: 10px;
+            height: 20px;
+            background: #F08080;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+        #skipIntro {
+            top: 20px;
+            right: 20px;
+            font-size: 20px;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        #spinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 50px;
+            display: none;
+            color: white;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+        }
+
+        #spinnerText {
+            font-size: 24px;
+            display: none;
+            color: white;
+            text-align: center;
+            text-shadow: 1px 0 black, -1px 0 black, 0 1px black, 0 -1px black;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .fa-spin-pulse::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, green, red, pink);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #progressBar::-webkit-slider-runnable-track {
+            background: #6c757d;
+        }
+
+        #progressBar::-moz-range-track {
+            background: #6c757d;
+        }
+
+        .progress-container #loadingBar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: linear-gradient(to right, red, #ff69b4, #ff4500);
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.2s;
+            z-index: 1;
+        }
+
+        .progress-container #topThumb {
+            position: absolute;
+            top: -3px;
+            left: 0;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background-color: white;
+            cursor: pointer;
+            z-index: 2;
+            background-image: url('https://i.ibb.co/VcfL58VS/Pngtree-easter-bunny-4169138.png');
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+    <div id="videoContainer">
+        <video id="video" src=""></video>
+        <div id="title">titulo de video</div>
+        <div id="centerControls">
+            <button id="rewind"><i class="fas fa-undo"></i></button>
+            <button id="playPause"><i class="fas fa-play"></i></button>
+            <button id="forward"><i class="fas fa-redo"></i></button>
+        </div>
+        <div id="skipIntro">Saltar Intro</div>
+        <div class="progress-container">
+            <input type="range" id="progressBar" min="0" max="0" value="0">
+            <div id="loadingBar"></div>
+            <div id="topThumb"></div>
+        </div>
+        <div id="controls">
+            <button id="mute"><i class="fas fa-volume-up"></i></button>
+            <div id="timeDisplay">
+                <span id="currentTime">0:00:00</span> / <span id="duration">0:00:00</span>
+            </div>
+            <button id="fullscreen"><i class="fas fa-expand"></i></button>
+        </div>
+        <div id="spinner"><i class="fas fa-spinner fa-spin"></i>
+            <div id="spinnerText">Cargando reproductor Nagi Plus</div>
+        </div>
+    </div>
+    <script defer>
+        function getParameterByName(name) {
+            const url = window.location.href;
+            name = name.replace(/[\[\]]/g, '\\$&');
+            const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                  results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        const videoLink = getParameterByName('link');
+        const videoTitle = getParameterByName('titulo');
+        const skipTime = parseInt(getParameterByName('tiempo'), 10);
+
+        window.onload = function() {
+            if (videoLink) {
+                const savedTime = localStorage.getItem(videoLink + 'currentTime');
+                if (savedTime) {
+                    if (confirm("¿Continuar desde donde lo dejaste o empezar de nuevo?")) {
+                        video.src = videoLink; 
+                        video.currentTime = parseFloat(savedTime);
+                        video.play();
+                    } else {
+                        video.src = videoLink;
+                        video.currentTime = 0;
+                        video.play();
+                    }
+                } else {
+                    video.src = videoLink;
+                    video.play();
+                }
+                if (videoTitle) {
+                    document.getElementById('title').innerText = videoTitle; 
+                }
+            }
+        };
+
+        const video = document.getElementById('video');
+        const videoContainer = document.getElementById('videoContainer');
+        const playPauseButton = document.getElementById('playPause');
+        const muteButton = document.getElementById('mute');
+        const fullscreenButton = document.getElementById('fullscreen');
+        const currentTimeDisplay = document.getElementById('currentTime');
+        const durationDisplay = document.getElementById('duration');
+        const rewindButton = document.getElementById('rewind');
+        const forwardButton = document.getElementById('forward');
+        const skipIntroButton = document.getElementById('skipIntro');
+        const spinner = document.getElementById('spinner');
+        const spinnerText = document.getElementById('spinnerText');
+        const progressBar = document.getElementById('progressBar');
+        const loadingBar = document.getElementById('loadingBar');
+        const topThumb = document.getElementById('topThumb');
+        const progressContainer = document.querySelector('.progress-container');
+        const controls = document.querySelectorAll('#controls, #title, #centerControls, #skipIntro, #progressBar, .progress-container');
+        let hideControlsTimeout;
+        const introDuration = 125;
+        let controlsVisible = false;
+
+        video.addEventListener('loadeddata', () => {
+            durationDisplay.textContent = formatTime(video.duration);
+            progressBar.max = video.duration;
+            progressBar.value = 0;
+            updateThumbPosition();
+        });
+
+        video.addEventListener('waiting', () => {
+            spinner.style.display = 'block';
+            spinnerText.style.display = 'block';
+        });
+
+        video.addEventListener('playing', () => {
+            spinner.style.display = 'none';
+            spinnerText.style.display = 'none';
+        });
+
+        video.addEventListener('timeupdate', () => {
+            currentTimeDisplay.textContent = formatTime(video.currentTime);
+            progressBar.value = video.currentTime;
+            const progressPercentage = (video.currentTime / video.duration) * 100;
+            loadingBar.style.width = progressPercentage + '%';
+            updateThumbPosition();
+
+            if (video.currentTime > skipTime) {
+                skipIntroButton.style.display = 'none';
+            }
+        });
+
+        video.addEventListener('ended', () => {
+            progressBar.value = video.duration;
+            loadingBar.style.width = '100%';
+            updateThumbPosition();
+        });
+
+        playPauseButton.addEventListener('click', () => {
+            if (controlsVisible) {
+                if (video.paused) {
+                    video.play();
+                    playPauseButton.innerHTML = '<i class="fas fa-pause"></i>';
+                } else {
+                    video.pause();
+                    playPauseButton.innerHTML = '<i class="fas fa-play"></i>';
+                }
+            }
+        });
+
+        muteButton.addEventListener('click', () => {
+            if (controlsVisible) {
+                video.muted = !video.muted;
+                muteButton.innerHTML = video.muted ? '<i class="fas fa-volume-mute"></i>' : '<i class="fas fa-volume-up"></i>';
+            }
+        });
+
+        fullscreenButton.addEventListener('click', () => {
+            if (controlsVisible) {
+                if (document.fullscreenElement) {
+                    document.exitFullscreen();
+                    fullscreenButton.innerHTML = '<i class="fas fa-expand"></i>';
+                } else {
+                    videoContainer.requestFullscreen();
+                    fullscreenButton.innerHTML = '<i class="fas fa-compress"></i>';
+                }
+            }
+        });
+
+        rewindButton.addEventListener('click', () => {
+            if (controlsVisible) {
+                video.currentTime = Math.max(0, video.currentTime - 10);
+            }
+        });
+
+        forwardButton.addEventListener('click', () => {
+            if (controlsVisible) {
+                video.currentTime = Math.min(video.duration, video.currentTime + 10);
+            }
+        });
+
+        skipIntroButton.addEventListener('click', () => {
+            if (controlsVisible) {
+                video.currentTime = skipTime;
+                skipIntroButton.style.display = 'none';
+            }
+        });
+
+        videoContainer.addEventListener('click', (event) => {
+            if (!event.target.closest('button') && !event.target.closest('.progress-container')) { 
+                if (controlsVisible) {
+                    hideControls(true);
+                } else {
+                    showControls();
+                }
+            }
+        });
+
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach(button => {
+            button.addEventListener('click', (event) => {
+                event.stopPropagation();
+            });
+        });
+
+        progressBar.addEventListener('input', () => {
+            if (controlsVisible) {
+                const progressPercentage = (progressBar.value / progressBar.max) * 100;
+                loadingBar.style.width = progressPercentage + '%';
+                video.currentTime = progressBar.value;
+                updateThumbPosition();
+            }
+        });
+
+        progressContainer.addEventListener('click', (event) => {
+            if (controlsVisible) {
+                const containerRect = progressContainer.getBoundingClientRect();
+                const clickPosition = event.clientX - containerRect.left;
+                const newTime = (clickPosition / containerRect.width) * video.duration;
+                video.currentTime = newTime;
+                progressBar.value = newTime;
+                const progressPercentage = (newTime / video.duration) * 100;
+                loadingBar.style.width = progressPercentage + '%';
+                updateThumbPosition();
+            }
+        });
+
+        topThumb.addEventListener('click', (event) => {
+            if (controlsVisible) {
+                const containerRect = progressContainer.getBoundingClientRect();
+                const clickPosition = event.clientX - containerRect.left;
+                const newTime = (clickPosition / containerRect.width) * video.duration;
+                video.currentTime = newTime;
+                progressBar.value = newTime;
+                const progressPercentage = (newTime / video.duration) * 100;
+                loadingBar.style.width = progressPercentage + '%';
+                updateThumbPosition();
+            }
+        });
+
+        function updateThumbPosition() {
+            const progressPercentage = (video.currentTime / video.duration) * 100;
+            topThumb.style.left = progressPercentage + '%';
+        }
+
+        function showControls() {
+            controls.forEach(control => {
+                control.style.opacity = '1';
+            });
+            controlsVisible = true;
+            clearTimeout(hideControlsTimeout);
+        }
+
+        function hideControls(immediate = false) {
+            if (immediate) {
+                controls.forEach(control => {
+                    control.style.opacity = '0';
+                });
+                controlsVisible = false;
+            } else {
+                hideControlsTimeout = setTimeout(() => {
+                    if (!video.paused) {
+                        controls.forEach(control => {
+                            control.style.opacity = '0';
+                        });
+                        controlsVisible = false;
+                    }
+                }, 3000);
+            }
+        }
+
+        function formatTime(seconds) {
+            const hrs = Math.floor(seconds / 3600);
+            const mins = Math.floor((seconds % 3600) / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${hrs}:${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        video.addEventListener('pause', () => {
+            localStorage.setItem(video.src + 'currentTime', video.currentTime);
+        });
+
+        video.addEventListener('loadeddata', () => {
+            if (localStorage.getItem(video.src + 'currentTime')) {
+                video.currentTime = parseFloat(localStorage.getItem(video.src + 'currentTime'));
+            }
+        });
+
+        video.addEventListener('play', hideControls);
+        video.addEventListener('pause', showControls);
+        showControls();
+    </script>
+</body>
+</html>
